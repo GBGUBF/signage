@@ -1,0 +1,41 @@
+body{
+    margin: 0; /* Remove default margin */
+    padding: 0;
+    overflow: hidden;
+}
+
+.parent {
+    border: none;
+    display: grid;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    height: 100vh;
+    width: 100vw;
+}
+
+iframe{
+    height: calc(100% + 8px);
+    width: calc(100% + 8px);
+    transform: scale(1.01);
+    border: none;
+    position: relative;
+    top: -4px;
+    left: -4px;
+    overflow: hidden;
+}
+
+.vasttrafik {
+    zoom: 40%;
+}
+
+/* Ensure the inner content renders at full size */
+.content {
+    border: none;
+    overflow: hidden;
+}
+
+
+#ul { grid-area: ul; z-index: -1;}
+#ur { grid-area: ur; z-index: 1;}
+#ll { grid-area: ll; z-index: -1;}
+#lr { grid-area: lr; z-index: 1;}

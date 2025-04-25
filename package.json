@@ -1,0 +1,38 @@
+{
+  "name": "signage",
+  "version": "1.0.0",
+  "description": "Modular signage app with Rollup and inline HTML output",
+  "scripts": {
+    "build": "cross-env BUILD=dev rollup -c && shx cp src/css/style.css docs/",
+    "build:min": "cross-env BUILD=production rollup -c",
+    "dev": "http-server docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GBGUBF/signage.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GBGUBF/signage/issues"
+  },
+  "homepage": "https://github.com/GBGUBF/signage#readme",
+  "type": "module",
+  "dependencies": {
+    "jquery": "^3.7.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-html": "^2.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "cross-env": "^7.0.3",
+    "gh-pages": "^6.3.0",
+    "http-server": "^14.1.1",
+    "rollup": "^2.79.2",
+    "shx": "^0.4.0"
+  }
+}

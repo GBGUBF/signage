@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signage App</title>
+  <style>
+body{
+    margin: 0; /* Remove default margin */
+    padding: 0;
+    overflow: hidden;
+}
+
+.parent {
+    border: none;
+    display: grid;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    height: 100vh;
+    width: 100vw;
+}
+
+iframe{
+    height: calc(100% + 8px);
+    width: calc(100% + 8px);
+    transform: scale(1.01);
+    border: none;
+    position: relative;
+    top: -4px;
+    left: -4px;
+    overflow: hidden;
+}
+
+.vasttrafik {
+    zoom: 40%;
+}
+
+/* Ensure the inner content renders at full size */
+.content {
+    border: none;
+    overflow: hidden;
+}
+
+
+#ul { grid-area: ul; z-index: -1;}
+#ur { grid-area: ur; z-index: 1;}
+#ll { grid-area: ll; z-index: -1;}
+#lr { grid-area: lr; z-index: 1;}
+</style>
+</head>
+<body>
+  <div class="parent">
+    <div class="content" id="ul"></div>
+    <div class="content" id="ur"></div>
+    <div class="content" id="ll"></div>
+    <div class="content" id="lr"></div>
+  </div>
+  <script>
+!function(){"use strict";const t={fullScreenUL:'\n      "ul ul"\n      "ul ul"\n  ',allFour:'\n      "ul ur"\n      "ll lr"\n  ',topFull:'\n      "ul ul"\n      "ll lr"\n  ',bottomFull:'\n      "ul ur"\n      "ll ll"\n  ',leftFull:'\n      "ul ur"\n      "ul lr"\n  ',rightFull:'\n      "ul ur"\n      "ll ur"\n  ',twoFullRows:'\n      "ul ur"\n      "ul ur"\n  ',twoFullColumns:'\n      "ul ul"\n      "ll ll"\n  '};let e,l={};const n=n=>{let o=function(e){const l=e.find((t=>"ul"===t.zone)),n=e.find((t=>"ur"===t.zone)),o=e.find((t=>"ll"===t.zone)),i=e.find((t=>"lr"===t.zone));if(e.some((t=>"ul"===t.zone&&"100%"===t.height&&"100%"===t.width)))return{layout:t.fullScreenUL,gridTemplateRows:"1fr",gridTemplateColumns:"1fr"};const r=e.filter((t=>"100%"===t.height)).length>=2,a=e.filter((t=>"100%"===t.width)).length>=2;if(r)return{layout:t.twoFullRows,gridTemplateRows:"1fr",gridTemplateColumns:`${l.width} ${n.width}`};if(a)return{layout:t.twoFullColumns,gridTemplateRows:`${l.height} ${o.height}`,gridTemplateColumns:"1fr"};const s="100%"===l?.width,u="100%"===o?.width;if(s)return{layout:t.topFull,gridTemplateRows:`${l.height} ${o.height}`,gridTemplateColumns:`${o.width} ${i.width}`};if(u)return{layout:t.bottomFull,gridTemplateRows:`${l.height} ${o.height}`,gridTemplateColumns:`${l.width} ${n.width}`};const d="100%"===l?.height,h="100%"===n?.height;return d?{layout:t.leftFull,gridTemplateRows:`${n.height} ${i.height}`,gridTemplateColumns:`${l.width} ${n.width}`}:h?{layout:t.rightFull,gridTemplateRows:`${l.height} ${o.height}`,gridTemplateColumns:`${l.width} ${n.width}`}:{layout:t.allFour,gridTemplateRows:`${l.height} ${o.height}`,gridTemplateColumns:`${l.width} ${n.width}`}}(n),i=$(".parent");$(i).css("grid-template-columns",o.gridTemplateColumns),$(i).css("grid-template-rows",o.gridTemplateRows),$(i).css("grid-template-areas",o.layout),function(t){t.forEach((t=>{const e=t.content,l={"Västtrafik":`https://avgangstavla.vasttrafik.se/?source=vasttrafikse-stopareadetailspage&stopAreaGid=${e.stopAreaGid1}${e.stopAreaGid2?`&stopAreaGid=${e.stopAreaGid2}`:""}`,"Google Slide":`https://docs.google.com/presentation/d/e/${e.presentationId}/embed?start=true&loop=true&delayms=${e.delayms}&rm=minimal`,Klocka:"https://torand0503.github.io/clock.html","Klocka (Svart)":"https://torand0503.github.io/clock.html?black=1","Klocka (Lila)":"https://torand0503.github.io/clock.html?purple=1",Hemsida:e.url}[e.type],n=$(`#${t.zone}`),o=$("<iframe />",{src:l,frameborder:0,allowfullscreen:!0}).appendTo(n);"Västtrafik"===e.type&&o.css("zoom","0.30")}))}(n),e=setInterval((function(){for(let[t,e]of Object.entries(l))if(!e){let e=document.getElementById(t);e.src=e.src}Object.values(l).every((t=>!0===t))&&clearInterval(e)}),1e3)};let o=window.location.search;const i=new URLSearchParams(o);let r,a;i.size>0&&(i.entries(),r=JSON.parse(Object.fromEntries(i.entries()).data).signageConfiguration.items,n(r)),navigator.managed.getManagedConfiguration(["signageConfiguration"]).then((function(t){a=t.signageConfiguration;let e=a.items;n(e)})).then((function(){})).catch((t=>{console.log(t)})),document.addEventListener("DOMContentLoaded",(async t=>{await navigator.wakeLock.request("screen"),setInterval((function(){Array.prototype.slice.call(document.getElementsByTagName("iframe")).forEach((t=>{t.src=t.src}))}),6e5)}))}();
+
+</script>
+</body>
+</html>
