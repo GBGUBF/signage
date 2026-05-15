@@ -1,0 +1,51 @@
+name: Sync Feature to Management Board
+on:
+  issues:
+    types: [opened, labeled, closed, reopened]
+
+jobs:
+  sync:
+    if: contains(github.event.issue.labels.*.name, 'type:Feature')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub App Token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.SYNC_BOT_APP_ID }}
+          private-key: ${{ secrets.SYNC_BOT_PRIVATE_KEY }}
+          owner: GBGUBF
+
+      - name: Create or Update Linked Issue
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ steps.generate-token.outputs.token }}
+          script: |
+            const repoName = context.repo.repo;
+            const issueTitle = `[PROJEKT] ${repoName}`;
+            
+            // Leta efter huvudprojektet i .github-repot
+            const { data: searchResults } = await github.rest.search.issuesAndPullRequests({
+              q: `repo:GBGUBF/.github is:issue in:title "${issueTitle}"`
+            });
+            
+            if (searchResults.total_count > 0) {
+              const managementIssue = searchResults.items[0];
+              const featureUrl = context.payload.issue.html_url;
+              const featureTitle = context.payload.issue.title;
+              const action = context.payload.action;
+              
+              let commentBody = "";
+              if (action === "closed") {
+                commentBody = `✅ **Klart:** En feature har slutförts i ${repoName}: [${featureTitle}](${featureUrl})`;
+              } else {
+                commentBody = `🔗 **Ny koppling:** En feature påbörjad/uppdaterad i ${repoName}: [${featureTitle}](${featureUrl})`;
+              }
+              
+              await github.rest.issues.createComment({
+                owner: 'GBGUBF',
+                repo: '.github',
+                issue_number: managementIssue.number,
+                body: commentBody
+              });
+            }
