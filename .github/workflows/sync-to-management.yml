@@ -5,7 +5,7 @@ on:
 
 jobs:
   sync:
-    if: contains(github.event.issue.labels.*.name, 'type:Feature')
+    if: github.event.issue.type.name == 'Feature'
     runs-on: ubuntu-latest
     steps:
       - name: Generate GitHub App Token
