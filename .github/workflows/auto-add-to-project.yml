@@ -1,0 +1,41 @@
+name: Auto-Add to Project
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub App Token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.SYNC_BOT_APP_ID }}
+          private-key: ${{ secrets.SYNC_BOT_PRIVATE_KEY }}
+          owner: GBGUBF
+
+      - name: Add to Project
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ steps.generate-token.outputs.token }}
+          script: |
+            const projectId = "PVT_kwDOB8rc984BXZgI";
+            const contentId = context.payload.issue.node_id;
+            
+            console.log(`Processing new issue: ${context.payload.issue.title} (Node ID: ${contentId})`);
+            
+            const mutationAdd = `
+              mutation($projectId: ID!, $contentId: ID!) {
+                addProjectV2ItemById(input: {projectId: $projectId, contentId: $contentId}) {
+                  item { id }
+                }
+              }
+            `;
+            
+            try {
+              const result = await github.graphql(mutationAdd, { projectId, contentId });
+              console.log(`Successfully added to project! Item ID: ${result.addProjectV2ItemById.item.id}`);
+            } catch (error) {
+              console.error("Error adding item to project:", error);
+            }
