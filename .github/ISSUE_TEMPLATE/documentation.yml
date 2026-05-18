@@ -1,0 +1,23 @@
+name: "📚 Dokumentation"
+description: "Föreslå eller rapportera brister i dokumentationen."
+type: Documentation
+labels: ["priority:medium"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Bra dokumentation är lika viktigt som bra kod! Berätta vad vi kan förbättra.
+  - type: textarea
+    id: current_doc
+    attributes:
+      label: "Vilken dokumentation gäller det?"
+      description: "Länka gärna till den specifika sidan eller filen (t.ex. README.md)."
+    validations:
+      required: true
+  - type: textarea
+    id: improvements
+    attributes:
+      label: "Vad behöver förbättras?"
+      description: "Berätta vad som saknas, är felaktigt eller otydligt."
+    validations:
+      required: true

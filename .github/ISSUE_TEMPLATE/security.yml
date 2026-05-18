@@ -1,0 +1,23 @@
+name: "⚠️ Säkerhetsincident"
+description: "Rapportera en allvarlig säkerhetsbrist eller sårbarhet."
+type: Security
+labels: ["priority:high"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Tack för att du uppmärksammar detta. Säkerhetsincidenter hanteras med högsta prioritet.
+  - type: textarea
+    id: vulnerability
+    attributes:
+      label: "Beskriv säkerhetsbristen"
+      description: "Vad har du hittat och hur kan det utnyttjas?"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "Hur kan vi återskapa detta?"
+      description: "Steg-för-steg instruktioner för att reproducera sårbarheten."
+    validations:
+      required: true

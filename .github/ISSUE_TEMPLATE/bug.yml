@@ -1,0 +1,32 @@
+name: "🐛 Felrapport (Bug)"
+description: "Rapportera något som inte fungerar."
+type: Bug
+labels: ["priority:medium"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Tack för att du rapporterar! Din rapport hjälper oss att hålla Alma stabil.
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Vad är problemet?"
+      description: "Beskriv tydligt vad som händer och vad som borde hända."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Hur kan vi återskapa felet?"
+      description: "Steg-för-steg instruktioner."
+    validations:
+      required: true
+  - type: dropdown
+    id: risk
+    attributes:
+      label: "Innebär detta en säkerhetsrisk?"
+      options:
+        - "Nej"
+        - "Ja - Kräver omedelbar åtgärd"
+    validations:
+      required: true

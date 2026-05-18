@@ -1,0 +1,23 @@
+name: "✅ Uppgift (Task)"
+description: "Skapa en generell uppgift eller ett internt ärende."
+type: Task
+labels: ["priority:medium"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Använd detta formulär för att skapa allmänna uppgifter, underhåll (chores) eller andra ärenden.
+  - type: textarea
+    id: description
+    attributes:
+      label: "Beskrivning"
+      description: "Vad behöver göras?"
+    validations:
+      required: true
+  - type: textarea
+    id: done_when
+    attributes:
+      label: "När är uppgiften klar? (Definition of Done)"
+      description: "Beskriv vad som krävs för att denna uppgift ska kunna stängas."
+    validations:
+      required: false

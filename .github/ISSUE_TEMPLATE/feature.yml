@@ -1,0 +1,23 @@
+name: "🚀 Ny funktion (Feature)"
+description: "Föreslå en ny idé eller förbättring."
+type: Feature
+labels: ["priority:medium"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Vi älskar nya idéer! Beskriv vad du vill bygga.
+  - type: textarea
+    id: goal
+    attributes:
+      label: "Vad vill du uppnå?"
+      description: "Vem är det till för och vad är nyttan?"
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: "Förslag på lösning"
+      description: "Hur tänker du att det ska fungera?"
+    validations:
+      required: true
