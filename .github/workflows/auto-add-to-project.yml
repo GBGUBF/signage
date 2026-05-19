@@ -7,8 +7,16 @@ jobs:
   add-to-project:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate GitHub App Token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.SYNC_BOT_APP_ID }}
+          private-key: ${{ secrets.SYNC_BOT_PRIVATE_KEY }}
+          owner: GBGUBF
+
       - name: Add to Project Board
         env:
-          GH_TOKEN: ${{ secrets.MANAGEMENT_TOKEN }}
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
           gh project item-add 2 --owner GBGUBF --url "${{ github.event.issue.html_url }}"
